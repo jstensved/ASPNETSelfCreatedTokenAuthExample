@@ -99,6 +99,30 @@ namespace TokenAuthExampleWebApplication
 
                 };
             }
+            
+            /// <summary>
+            /// Generate a random json file suitable for use with <see cref="GetKeyParameters"/>
+            /// </summary>
+            /// <param name="file"></param>
+            public static void ExportKeyToFile(RSAParameters key, string file)
+            {
+          
+                var rpsp = new RSAParametersWithPrivate()
+                {
+                    D = key.D,
+                    DP = key.DP,
+                    DQ = key.DQ,
+                    Exponent = key.Exponent,
+                    InverseQ= key.InverseQ,
+                    Modulus = key.Modulus,
+                    P = key.P,
+                    Q = key.Q
+                };
+    
+                string jsonKey = JsonConvert.SerializeObject(rpsp);
+                File.WriteAllText(file, jsonKey);
+            }
+        
         }
     }
 }
